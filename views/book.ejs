@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= book['title'] %></title>
+</head>
+<style>
+	body{
+		padding-top:70px;
+	}
+</style>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<a href=".." class="navbar-brand">Home</a>
+		</div>
+	</nav>
+	<div class="well">
+		<div class="media">
+			<% if(book['cover']==1) { %><img class="media-object pull-left img-rounded" src="../book/<%= book['path'] %>/cover.jpg" width="128" alt="">
+			<% } else { %><img class="media-object pull-left img-rounded" src="../public/DefaultCover.jpg" width="128" alt=""><% } %>
+			<div class="media-body">
+				<h2 class="media-heading"><%= book['title'] %> by <i><a href="../?author=<%= book['author'] %>"><%= book['author'] %></a></i></h2>
+				<%- book['comment'] %>
+				<br>
+				<% for(var j = 0; j<book['formats'].split(',').length;j++){ var format = book['formats'].split(',')[j]; %>
+				<a class="btn btn-default" href="../book/<%= book['path'] %>/<%= book['name'] %>.<%= format %>"><%= format %></a>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="../public/css/bootstrap-theme.min.css">
+
+	<script src="../public/jquery-1.11.1.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="../public/js/bootstrap.min.js"></script>
+	<!--<script src="public/js/app.js"></script>-->
+</body>
+</html>

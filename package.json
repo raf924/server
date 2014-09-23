@@ -1,0 +1,11 @@
+{
+  "name": "calibre-server",
+  "description": "Calibre content server",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "4.x",
+    "ejs": "latest",
+    "sqlite3": "latest"
+  }
+}
