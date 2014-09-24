@@ -6,6 +6,16 @@
 	<title>Calibre Library</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="public/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="public/css/bootstrap-theme.min.css">
+
+	<script src="public/jquery-1.11.1.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="public/js/bootstrap.min.js"></script>
+	<script src="public/js/ejs_production.js"></script>
 </head>
 <style>
 	body{
@@ -30,45 +40,20 @@
 			</form>
 		</div>
 	</nav>
-	<ul class="pagination">
-		<% for(var k = 0; k<pages;k++){ %>
-			<% if(page==k) { %> 
-			<li class="active">
-			<% } else { %>
-			<li>
-			<% } %>
-			<a href="<%= k %>"><%= k %></a>
-		</li>
-		<% } %>
-	</ul>
-	<ul class="media-list list-group">
-		<% for(var i = 0 ; i<books.length ; i++ ){ var book = books[i]; %>
-		<li class="list-group-item media">
-			<a href="info/<%= book['id'] %>">
-				<% if(book['cover']==1) { %><img class="media-object pull-left img-rounded" src="book/<%= book['path'] %>/cover.jpg" width="128" alt="">
-				<% } else { %><img class="media-object pull-left img-rounded" src="public/DefaultCover.jpg" width="128" alt=""><% } %>
-			</a>
-			<div class="media-body">
-				<a href="info/<%= book['id'] %>"><h3><%= book['title'] %></h3></a> <i>by <a href="?author=<%= book['author'] %>"><%= book['author'] %></a></i>
-				<br>
-				<% for(var j = 0; j<book['formats'].split(',').length;j++){ var format = book['formats'].split(',')[j]; %>
-				<a class="btn btn-default" href="book/<%= book['path'] %>/<%= book['name'] %>.<%= format %>"><%= format %></a>
-				<% } %>
-			</div>
-		</li>
-		<% } %>
-	</ul>	
+	<%- "<script>var pagination = new EJS({url:'views/pagination.ejs'}).render({pages:"+pages+", page:"+page+"});document.write(pagination);</script>" %>
+	<div id="content">
+		
+	</div>
 	<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script>-->
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="public/css/bootstrap.min.css">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="public/css/bootstrap-theme.min.css">
-
-	<script src="public/jquery-1.11.1.min.js"></script>
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="public/js/bootstrap.min.js"></script>
+	
+	<script>
+		$(function () {
+			$.get('/books/0', {formats:'<%= formats %>'}, function (data) {
+				$("#content").html((data));
+			});
+		});
+	</script>
 	<!--<script src="public/js/app.js"></script>-->
 </body>
 </html>
